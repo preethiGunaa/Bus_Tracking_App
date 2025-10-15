@@ -1,0 +1,293 @@
+/* src/pages/Driver/DriverDashboard.css */
+.driver-dashboard {
+    min-height: 100vh;
+    background: #f8fafc;
+}
+
+.dashboard-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.welcome-section {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-section h1 {
+    color: #000;
+    margin-bottom: 0.5rem;
+}
+
+.welcome-section p {
+    color: #6b7280;
+    margin-bottom: 1rem;
+}
+
+.status-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.status-indicator {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.status-indicator.online {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-indicator.offline {
+    background: #fecaca;
+    color: #dc2626;
+}
+
+.toggle-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.online-btn {
+    background: #000;
+    color: white;
+}
+
+.online-btn:hover {
+    background: #f59e0b;
+    color: #000;
+}
+
+.offline-btn {
+    background: #dc2626;
+    color: white;
+}
+
+.offline-btn:hover {
+    background: #b91c1c;
+}
+
+.dashboard-nav {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+}
+
+.nav-btn {
+    background: white;
+    border: 2px solid #e5e7eb;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    color: #6b7280;
+    transition: all 0.3s ease;
+}
+
+.nav-btn.active {
+    background: #000;
+    color: white;
+    border-color: #000;
+}
+
+.nav-btn:hover:not(.active) {
+    border-color: #f59e0b;
+    color: #f59e0b;
+}
+
+.tab-content {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.location-card {
+    text-align: center;
+}
+
+.gps-placeholder {
+    background: #f8fafc;
+    border: 2px dashed #e5e7eb;
+    border-radius: 12px;
+    padding: 3rem;
+    text-align: center;
+    color: #6b7280;
+    margin-bottom: 2rem;
+}
+
+.location-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.action-btn.primary {
+    background: #000;
+    color: white;
+}
+
+.action-btn.primary:hover {
+    background: #f59e0b;
+    color: #000;
+}
+
+.action-btn.secondary {
+    background: #f8fafc;
+    color: #000;
+    border: 2px solid #e5e7eb;
+}
+
+.action-btn.secondary:hover {
+    border-color: #f59e0b;
+    color: #f59e0b;
+}
+
+.routes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.route-card {
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 2px solid #f59e0b;
+}
+
+.route-stats {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0;
+    color: #f59e0b;
+    font-weight: 500;
+}
+
+.route-action-btn {
+    background: #000;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    width: 100%;
+}
+
+.route-action-btn:hover {
+    background: #f59e0b;
+    color: #000;
+}
+
+.schedule-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.schedule-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    border-left: 4px solid #f59e0b;
+}
+
+.schedule-time {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100px;
+}
+
+.schedule-time .time {
+    font-weight: 600;
+    color: #000;
+}
+
+.schedule-time .date {
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+.schedule-details {
+    flex: 1;
+    margin: 0 1.5rem;
+}
+
+.schedule-details h4 {
+    margin: 0 0 0.25rem 0;
+    color: #000;
+}
+
+.schedule-details p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.schedule-status {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.schedule-status.upcoming {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-main {
+        padding: 1rem;
+    }
+
+    .dashboard-nav {
+        flex-direction: column;
+    }
+
+    .location-actions {
+        flex-direction: column;
+    }
+
+    .schedule-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .route-stats {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}

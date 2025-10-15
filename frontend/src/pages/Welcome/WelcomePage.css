@@ -1,0 +1,376 @@
+.welcome-container {
+    min-height: 100vh;
+    background: #ffffff;
+    /* 🆕 WHITE BACKGROUND */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    width: 100%;
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 🟡 ADD YELLOW ACCENT BACKGROUND ELEMENTS */
+.welcome-container::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(45deg, #f59e0b, #fbbf24);
+    border-radius: 50%;
+    opacity: 0.05;
+    z-index: 0;
+}
+
+.welcome-container::after {
+    content: '';
+    position: absolute;
+    bottom: -20%;
+    left: -10%;
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(45deg, #fbbf24, #f59e0b);
+    border-radius: 50%;
+    opacity: 0.05;
+    z-index: 0;
+}
+
+.hero-section {
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    color: #000000;
+    /* 🆕 BLACK TEXT */
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+}
+
+.hero-badge {
+    background: rgba(245, 158, 11, 0.1);
+    /* 🆕 YELLOW TINT */
+    color: #d97706;
+    /* 🆕 DARK YELLOW TEXT */
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    width: fit-content;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0;
+    color: #000000;
+    /* 🆕 BLACK TEXT */
+}
+
+.title-accent {
+    color: #f59e0b;
+    /* 🆕 YELLOW ACCENT */
+    display: block;
+}
+
+.hero-description {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #4b5563;
+    /* 🆕 DARK GRAY FOR READABILITY */
+    margin: 0;
+}
+
+/* Get Started Button - YELLOW */
+.get-started-btn {
+    background: #f59e0b;
+    /* 🆕 YELLOW BACKGROUND */
+    color: #000000;
+    /* 🆕 BLACK TEXT */
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: fit-content;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+}
+
+.get-started-btn:hover {
+    background: #d97706;
+    /* 🆕 DARKER YELLOW ON HOVER */
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+}
+
+.btn-arrow {
+    transition: transform 0.3s ease;
+    font-weight: bold;
+}
+
+.get-started-btn:hover .btn-arrow {
+    transform: translateX(4px);
+}
+
+/* Features Grid - BLACK COMPONENTS */
+.features-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    width: 100%;
+}
+
+.feature-card {
+    background: #f59e0b;
+    /* 🆕 BLACK BACKGROUND */
+    color: black;
+    /* 🆕 WHITE TEXT */
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 2px solid #f59e0b;
+    /* 🆕 YELLOW BORDER */
+    transition: all 0.3s ease;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: gray;
+    background: #deaf38;
+    /* 🆕 BRIGHTER YELLOW ON HOVER */
+}
+
+.feature-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #f59e0b;
+    /* 🆕 YELLOW ICONS */
+}
+
+.feature-card h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    color: black;
+    /* 🆕 WHITE TEXT */
+}
+
+.feature-card p {
+    margin: 0;
+    opacity: 0.8;
+    font-size: 0.9rem;
+    color: black;
+    /* 🆕 LIGHT GRAY FOR READABILITY */
+}
+
+/* Hero Visual */
+.hero-visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.bus-animation {
+    font-size: 8rem;
+    animation: float 3s ease-in-out infinite;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.map-dots {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background: #f59e0b;
+    /* 🆕 YELLOW DOTS */
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.dot:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.dot:nth-child(3) {
+    animation-delay: 1s;
+}
+
+.dot:nth-child(4) {
+    animation-delay: 1.5s;
+}
+
+/* Animations */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .welcome-container {
+        padding: 1rem;
+    }
+
+    .hero-section {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-badge {
+        align-self: center;
+    }
+
+    .get-started-btn {
+        align-self: center;
+    }
+
+    .bus-animation {
+        font-size: 5rem;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Extra Large Screens */
+@media (min-width: 1400px) {
+    .hero-section {
+        max-width: 1400px;
+    }
+}
+
+/* Login Options Styles */
+.login-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 2rem 0;
+    width: 100%;
+}
+
+.login-option-btn {
+    background: #f59e0b;
+    color: black;
+    border: 2px solid #f59e0b;
+    padding: 1.5rem;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    transition: all 0.3s ease;
+    text-align: left;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.login-option-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+    border-color: #deaf38;
+    background: #deaf38;
+}
+
+.option-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.option-content {
+    flex: 1;
+}
+
+.option-content h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    color: black;
+}
+
+.option-content p {
+    margin: 0;
+    opacity: 0.8;
+    font-size: 0.95rem;
+    color: black;
+}
+
+.option-arrow {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #f59e0b;
+    transition: transform 0.3s ease;
+}
+
+.login-option-btn:hover .option-arrow {
+    transform: translateX(5px);
+}
+
+/* Responsive adjustments for login options */
+@media (max-width: 768px) {
+    .login-options {
+        gap: 1rem;
+    }
+
+    .login-option-btn {
+        padding: 1.25rem;
+    }
+
+    .option-icon {
+        font-size: 1.75rem;
+    }
+}
