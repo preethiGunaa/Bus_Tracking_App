@@ -5,7 +5,7 @@ const stopSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    stopOrder: {
+    stopOrder: { 
         type: Number,
         required: true  // 1, 2, 3... to maintain sequence
     },

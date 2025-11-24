@@ -1,87 +1,104 @@
 const Bus = require('../models/Bus');
 
 // 🟢 SEARCH AVAILABLE BUSES - SIMPLIFIED VERSION
+
+// 🟢 CALCULATE FARE BETWEEN TWO STOPS
 const searchBuses = async (req, res) => {
     try {
         const { source, destination, busType } = req.query;
 
-        // Basic validation
+        console.log('🔍 Search request received:', { source, destination, busType });
+
         if (!source || !destination) {
             return res.status(400).json({
                 success: false,
-                message: 'Please provide source and destination'
+                message: 'Source and destination are required'
             });
         }
 
-        console.log('🟡 Searching buses for:', { source, destination, busType });
+        // 🔴 DEBUG: First, let's see ALL buses in the database
+        const allBuses = await Bus.find({});
+        console.log('🟡 ALL BUSES IN DATABASE:', allBuses.length);
+        allBuses.forEach(bus => {
+            console.log(`- ${bus.busName} (${bus.busNumber}): ${bus.route.source} -> ${bus.route.destination}`);
+        });
 
-        // Build base query
+        // Build search query - UPDATED FOR YOUR NEW SCHEMA
         let query = {
-            'currentStatus.availableToday': true,
-            'currentStatus.isActive': true
+            $and: [
+                {
+                    $or: [
+                        { 'route.source': { $regex: `^${source}$`, $options: 'i' } },
+                        { 'route.source': { $regex: source, $options: 'i' } },
+                        { 'route.source': { $regex: new RegExp(source, 'i') } }
+                    ]
+                },
+                {
+                    $or: [
+                        { 'route.destination': { $regex: `^${destination}$`, $options: 'i' } },
+                        { 'route.destination': { $regex: destination, $options: 'i' } },
+                        { 'route.destination': { $regex: new RegExp(destination, 'i') } }
+                    ]
+                }
+            ]
         };
 
-        // Add bus type filter if provided
-        if (busType && ['government', 'private'].includes(busType)) {
+        // Add bus type filter if specified
+        if (busType && busType !== '') {
             query.busType = busType;
         }
 
-        // Get all active buses first
+        // Add active status check - using your new schema field
+        query['currentStatus.isActive'] = true;
+
+        console.log('🟡 FINAL MONGODB QUERY:', JSON.stringify(query, null, 2));
+
         const buses = await Bus.find(query)
-            .populate('driver', 'name phone')
-            .select('-createdAt -updatedAt');
+            .populate('driver', 'name contact')
+            .select('-__v');
 
-        console.log('🟡 Found active buses:', buses.length);
+        console.log(`✅ Search found ${buses.length} buses`);
 
-        // 🎯 SIMPLIFIED FILTERING: Check if bus route matches source and destination
-        const filteredBuses = buses.filter(bus => {
-            const routeSource = bus.route.source.toLowerCase();
-            const routeDestination = bus.route.destination.toLowerCase();
-            const userSource = source.toLowerCase();
-            const userDestination = destination.toLowerCase();
-
-            // Check if bus route matches user's source and destination
-            const matchesRoute = routeSource.includes(userSource) &&
-                routeDestination.includes(userDestination);
-
-            if (matchesRoute) {
-                console.log(`✅ Valid bus: ${bus.busName}`, {
-                    route: `${bus.route.source} → ${bus.route.destination}`,
-                    userSearch: `${source} → ${destination}`
-                });
-            }
-
-            return matchesRoute;
-        });
-
-        console.log('🟡 Final filtered buses:', filteredBuses.length);
-
-        if (filteredBuses.length === 0) {
-            return res.status(200).json({
-                success: true,
-                count: 0,
-                data: [],
-                message: 'No buses available for this route today. Try different locations or check back later.'
+        // 🔴 DEBUG: Show what was found
+        if (buses.length > 0) {
+            buses.forEach(bus => {
+                console.log(`🎯 FOUND: ${bus.busName} (${bus.busNumber}) - ${bus.route.source} -> ${bus.route.destination}`);
             });
+        } else {
+            console.log('❌ No buses found with current query');
+
+            // 🔴 DEBUG: Let's try a more flexible search
+            console.log('🟡 Trying flexible search...');
+            const flexibleBuses = await Bus.find({
+                $or: [
+                    {
+                        'route.source': { $regex: source, $options: 'i' },
+                        'route.destination': { $regex: destination, $options: 'i' }
+                    }
+                ],
+                'currentStatus.isActive': true
+            });
+            console.log(`🟡 Flexible search found: ${flexibleBuses.length} buses`);
         }
 
-        res.json({
+        res.status(200).json({
             success: true,
-            count: filteredBuses.length,
-            data: filteredBuses,
-            message: `${filteredBuses.length} buses found`
+            count: buses.length,
+            data: buses,
+            message: buses.length > 0
+                ? `Found ${buses.length} buses for ${source} to ${destination}`
+                : `No buses found for ${source} to ${destination}. Try different locations.`
         });
 
     } catch (error) {
-        console.error('🔴 Search error:', error);
+        console.error('🔴 Search buses error:', error);
         res.status(500).json({
             success: false,
-            message: 'Server error during bus search'
+            message: 'Server error while searching buses',
+            error: error.message
         });
     }
 };
-
-// 🟢 CALCULATE FARE BETWEEN TWO STOPS
 const calculateFare = async (req, res) => {
     try {
         const { busId } = req.params;

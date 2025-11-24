@@ -12,6 +12,8 @@ app.use(express.json());
 // Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/buses', require('./routes/buses'));
+app.use('/api/reports', require('./routes/reports'));
+app.use('/api/admin', require('./routes/admin'));
 
 // Test route
 app.get('/', (req, res) => {
@@ -20,7 +22,10 @@ app.get('/', (req, res) => {
 
 // Database connection
 mongoose.connect(process.env.MONGODB_URI)
-    .then(() => console.log(' MongoDB connected successfully'))
+    .then(() => {
+        console.log('MongoDB connected successfully');
+        console.log(`Connected to database: ${mongoose.connection.name}`);
+    })
     .catch(err => {
         console.error(' MongoDB connection failed:', err);
         process.exit(1);
@@ -31,3 +36,5 @@ app.listen(PORT, () => {
     console.log(` Server running on port ${PORT}`);
     console.log(` Test URL: http://localhost:${PORT}`);
 });
+
+

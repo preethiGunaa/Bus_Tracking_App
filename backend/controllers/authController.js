@@ -86,6 +86,58 @@ const registerUser = async (req, res) => {
 // @desc    Login user
 // @route   POST /api/auth/login
 // @access  Public
+// const loginUser = async (req, res) => {
+//     try {
+//         const { email, password, userType } = req.body;
+
+//         console.log('🔵 BACKEND LOGIN - Attempting login:', { email, userType });
+
+//         // Find user and include password (since we have select: false in model)
+//         const user = await User.findOne({ email }).select('+password');
+
+//         console.log('🔵 FOUND USER WITH ROLE:', user?.role);
+
+//         // Check if user exists and password matches
+//         if (user && (await user.matchPassword(password))) {
+//             // Verify user's role matches the requested userType
+//             if (userType && user.role !== userType) {
+//                 console.log('🔵 ROLE MISMATCH:', user.role, '!=', userType);
+//                 return res.status(401).json({
+//                     success: false,
+//                     message: `This account is for ${user.role}s. Please login as ${user.role}`
+//                 });
+//             }
+
+//             console.log('🔵 LOGIN SUCCESSFUL - Role:', user.role);
+//             res.json({
+//                 success: true,
+//                 data: {
+//                     _id: user._id,
+//                     name: user.name,
+//                     email: user.email,
+//                     role: user.role,
+//                     phone: user.phone,
+//                     token: generateToken(user._id),
+//                 },
+//                 message: 'Login successful'
+//             });
+//         } else {
+//             res.status(401).json({
+//                 success: false,
+//                 message: 'Invalid email or password'
+//             });
+//         }
+//     } catch (error) {
+//         console.log('🔵 LOGIN ERROR:', error);
+//         res.status(500).json({
+//             success: false,
+//             message: 'Server error during login'
+//         });
+//     }
+// };
+// @desc    Login user (including admin)
+// @route   POST /api/auth/login
+// @access  Public
 const loginUser = async (req, res) => {
     try {
         const { email, password, userType } = req.body;
@@ -99,7 +151,25 @@ const loginUser = async (req, res) => {
 
         // Check if user exists and password matches
         if (user && (await user.matchPassword(password))) {
-            // Verify user's role matches the requested userType
+            // 🆕 ADMIN LOGIN: Allow admin to login without userType check
+            if (user.role === 'admin') {
+                console.log('🔵 ADMIN LOGIN SUCCESSFUL');
+                res.json({
+                    success: true,
+                    data: {
+                        _id: user._id,
+                        name: user.name,
+                        email: user.email,
+                        role: user.role,
+                        phone: user.phone,
+                        token: generateToken(user._id),
+                    },
+                    message: 'Admin login successful'
+                });
+                return;
+            }
+
+            // For non-admin users, verify user's role matches the requested userType
             if (userType && user.role !== userType) {
                 console.log('🔵 ROLE MISMATCH:', user.role, '!=', userType);
                 return res.status(401).json({
@@ -135,5 +205,4 @@ const loginUser = async (req, res) => {
         });
     }
 };
-
 module.exports = { registerUser, loginUser };
